@@ -1,6 +1,6 @@
 # Embedded_Runge_Kutta_Pair_ODE_Solver
 
-This package defines a C++ class for numerical evaluation of ordinary differential equations. It implements the [Dormand-Prince](https://en.wikipedia.org/wiki/Dormand%E2%80%93Prince_method), a fifth-order, embedded-pair, adaptive step size Runge-Kutta integrator for systems of ordinary differential equations.
+This package defines a C++ class for numerical evaluation of ordinary differential equations. It implements the [Dormand-Prince](https://en.wikipedia.org/wiki/Dormand%E2%80%93Prince_method) method, a fifth-order, embedded-pair, adaptive step size Runge-Kutta integrator for systems of ordinary differential equations.
 
 # Motivation
 
