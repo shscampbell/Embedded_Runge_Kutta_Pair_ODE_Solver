@@ -5,15 +5,15 @@ This package defines a C++ class for numerical evaluation of ordinary differenti
 # Motivation
 
 Any system of ordinary differential equations can be written as a system of first order equations of the form
-![ODE](https://latex.codecogs.com/svg.download?%5Clarge%20%5Cfrac%7Bdx_1%7D%7Bdt%7D%3DF_1%28t%2Cx_1%2Cx_2%2C%5Cdots%2Cx_N%29%5C%5C%5C%5C%5Cmbox%7B%5C%20%5C%20%5C%20%5C%2C%7D%5Cfrac%7Bdx_2%7D%7Bdt%7D%3DF_2%28t%2Cx_1%2Cx_2%2C%5Cdots%2Cx_N%29%5C%5C%5Cmbox%7B%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%7D%5Cvdots%5C%5C%5Cmbox%7B%5C%20%5C%20%5C%2C%7D%5Cfrac%7Bdx_N%7D%7Bdt%7D%3DF_N%28t%2Cx_1%2Cx_2%2C%5Cdots%2Cx_N%29).
-Here, ![t](https://latex.codecogs.com/svg.download?t) is called the *independent variable*, and the ![N](https://latex.codecogs.com/svg.download?N) variables ![xi](https://latex.codecogs.com/svg.download?x_i) are called the dependent variables.
+![ODE](https://latex.codecogs.com/svg.latex?%5Clarge%20%5Cfrac%7Bdx_1%7D%7Bdt%7D%3DF_1%28t%2Cx_1%2Cx_2%2C%5Cdots%2Cx_N%29%5C%5C%5C%5C%5Cmbox%7B%5C%20%5C%20%5C%20%5C%2C%7D%5Cfrac%7Bdx_2%7D%7Bdt%7D%3DF_2%28t%2Cx_1%2Cx_2%2C%5Cdots%2Cx_N%29%5C%5C%5Cmbox%7B%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%7D%5Cvdots%5C%5C%5Cmbox%7B%5C%20%5C%20%5C%2C%7D%5Cfrac%7Bdx_N%7D%7Bdt%7D%3DF_N%28t%2Cx_1%2Cx_2%2C%5Cdots%2Cx_N%29).
+Here, ![t](https://latex.codecogs.com/svg.latex?t) is called the *independent variable*, and the ![N](https://latex.codecogs.com/svg.latex?N) variables ![xi](https://latex.codecogs.com/svg.latex?x_i) are called the dependent variables.
 
-The purpose is to determine dependent variables ![xi(t)](https://latex.codecogs.com/svg.download?x_i%28t%29) that satisfy a given set of differential equations over a range of the independent variable ![range](https://latex.codecogs.com/svg.download?t_1%5Cleq%20t%5Cleq%20t_2) for a particular set of initial conditions ![initConds](https://latex.codecogs.com/svg.download?x_i%28t_1%29).
+The purpose is to determine dependent variables ![xi(t)](https://latex.codecogs.com/svg.latex?x_i%28t%29) that satisfy a given set of differential equations over a range of the independent variable ![range](https://latex.codecogs.com/svg.latex?t_1%5Cleq%20t%5Cleq%20t_2) for a particular set of initial conditions ![initConds](https://latex.codecogs.com/svg.latex?x_i%28t_1%29).
 
-A sample code demonstrating the use of the class is provided in the file ODEtest.cpp. It evaluates the functions ![x(t)](https://latex.codecogs.com/svg.download?x%28t%29) and ![y(t)](https://latex.codecogs.com/svg.download?y%28t%29) satisfying the differential equations
-![ODEtest](https://latex.codecogs.com/svg.download?%5Cfrac%7Bdx%7D%7Bdt%7D%3Dx+y%5C%5C%5C%5C%5Cmbox%7B%5C%20%5C%20%5C%20%5C%20%5C%2C%7D%5Cfrac%7Bdy%7D%7Bdt%7D%3Dx-y)
-over the range ![ODErange](https://latex.codecogs.com/svg.download?0%5Cleq%20t%5Cleq%2015) where ![xinit](https://latex.codecogs.com/svg.download?x%280%29%3D3) and ![yinit](https://latex.codecogs.com/svg.download?y%280%29%3D6). The result is directly compared to the exact solution
-![soln](https://latex.codecogs.com/svg.download?x%28t%29%3D%5B3%5Ccosh%28%5Csqrt%7B2%7Dt-%5Cln%28%5Csqrt%7B2%7D-1%29%29+6%5Csinh%28%5Csqrt%7B2%7Dt%29%5D/%5Csqrt%7B2%7D%5C%5C%5C%5C%5Cmbox%7B%5C%20%5C%20%5C%20%5C%20%5C%2C%7Dy%28t%29%3D%5B3%5Csinh%28%5Csqrt%7B2%7Dt%29+6%5Ccosh%28%5Csqrt%7B2%7Dt-%5Cln%28%5Csqrt%7B2%7D+1%29%29%5D/%5Csqrt%7B2%7D)
+A sample code demonstrating the use of the class is provided in the file ODEtest.cpp. It evaluates the functions ![x(t)](https://latex.codecogs.com/svg.latex?x%28t%29) and ![y(t)](https://latex.codecogs.com/svg.latex?y%28t%29) satisfying the differential equations
+![ODEtest](https://latex.codecogs.com/svg.latex?%5Cfrac%7Bdx%7D%7Bdt%7D%3Dx+y%5C%5C%5C%5C%5Cmbox%7B%5C%20%5C%20%5C%20%5C%20%5C%2C%7D%5Cfrac%7Bdy%7D%7Bdt%7D%3Dx-y)
+over the range ![ODErange](https://latex.codecogs.com/svg.latex?0%5Cleq%20t%5Cleq%2015) where ![xinit](https://latex.codecogs.com/svg.latex?x%280%29%3D3) and ![yinit](https://latex.codecogs.com/svg.latex?y%280%29%3D6). The result is directly compared to the exact solution
+![soln](https://latex.codecogs.com/svg.latex?x%28t%29%3D%5B3%5Ccosh%28%5Csqrt%7B2%7Dt-%5Cln%28%5Csqrt%7B2%7D-1%29%29+6%5Csinh%28%5Csqrt%7B2%7Dt%29%5D/%5Csqrt%7B2%7D%5C%5C%5C%5C%5Cmbox%7B%5C%20%5C%20%5C%20%5C%20%5C%2C%7Dy%28t%29%3D%5B3%5Csinh%28%5Csqrt%7B2%7Dt%29+6%5Ccosh%28%5Csqrt%7B2%7Dt-%5Cln%28%5Csqrt%7B2%7D+1%29%29%5D/%5Csqrt%7B2%7D)
 
 # Language
 
