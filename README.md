@@ -29,27 +29,32 @@ C++
 To compile and run the test program, open the makefile and set the C++ compiler command and flags to the desired settings for your system. Run `make` to compile the source, then run the compiled program `ODEtest`. This will generate the output file ODEtest_output.txt, which can be compared to the provided file in this repo.
 
 # API Reference
+## Class Methods
+### `Embedded_Runge_Kutta_Pair_ODE_Solver()`
+```
+Embedded_Runge_Kutta_Pair_ODE_Solver::Embedded_Runge_Kutta_Pair_ODE_Solver(
+    double ti,
+    double tf,
+    const double *initConds,
+    double (**derivFuncs)(double *, double),
+    unsigned int nDepVars,
+    double tolerance = 0.01,
+    double stepSize = 1.,
+    unsigned int initLen = 0
+)
 
-### `Embedded_Runge_Kutta_Pair_ODE_Solver::Embedded_Runge_Kutta_Pair_ODE_Solver(`
-### `    double ti,`
-### `    double tf,`
-### `    const double *initConds,`
-### `    double (**derivFuncs)(double *, double),`
-### `    unsigned int nDepVars,`
-### `    double tolerance = 0.01,`
-### `    double stepSize = 1.,`
-### `    unsigned int initLen = 0)`
-
-### `Embedded_Runge_Kutta_Pair_ODE_Solver::Embedded_Runge_Kutta_Pair_ODE_Solver(`
-### `    double ti,`
-### `    double tf,`
-### `    const double *initConds,`
-### `    double (**derivFuncs)(double *, double),`
-### `    unsigned int nDepVars,`
-### `    int dokeepsoln,`
-### `    double tolerance = 0.01,`
-### `    double stepSize = 1.,`
-### `    unsigned int initLen = 0)`
+Embedded_Runge_Kutta_Pair_ODE_Solver::Embedded_Runge_Kutta_Pair_ODE_Solver(
+    double ti,
+    double tf,
+    const double *initConds,
+    double (**derivFuncs)(double *, double)
+    unsigned int nDepVars,
+    int dokeepsoln,
+    double tolerance = 0.01,
+    double stepSize = 1.,
+    unsigned int initLen = 0
+)
+```
 
 Perform the integration of the given differential equation with _nDepVars_ dependent variables for the independent variable ranging from _ti_ to _tf_ with initial conditions specified at _ti_.
 
@@ -81,11 +86,19 @@ Perform the integration of the given differential equation with _nDepVars_ depen
 
 _tolerance_ is a positive number. The pointers _initConds_ and _derivFuncs_ both point to arrays of _nDepVars_ elements. Also, the functions pointed to by each element of _derivFuncs_ each have a first argument that points to an array of _nDepVars_ elements. Note that _initLen_ is ignored if `dokeepsoln==0`. Each of the functions pointed to by the array _derivFuncs_ need to be real-valued over the given range of the independent variable.
 
-### `Embedded_Runge_Kutta_Pair_ODE_Solver::~Embedded_Runge_Kutta_Pair_ODE_Solver()`
+### `~Embedded_Runge_Kutta_Pair_ODE_Solver()`
 
-### `double Embedded_Runge_Kutta_Pair_ODE_Solver::evalX(`
-### `    unsigned int xIndex,`
-### `    double tVal)`
+```
+Embedded_Runge_Kutta_Pair_ODE_Solver::~Embedded_Runge_Kutta_Pair_ODE_Solver()
+```
+
+### `evalX()`
+
+```
+double Embedded_Runge_Kutta_Pair_ODE_Solver::evalX(
+    unsigned int xIndex,
+    double tVal)
+```
 
 Evaluate and return the dependent variable with index _xIndex_ at the independent variable value of _tVal_. If _xIndex_ is greater or equal to _nDepVars_, the number of dependent variables, then _evalX_ sets _errno_ to _ERANGE_ signifying a range error, prints an error message to _stderr_, and returns 0. If _tVal_ is sufficiently outside the independent variable range from _ti_ to _tf_, then the returned result is not likely to be accurate to within _tolerance_ and a warning will be printed to _stderr_.
 
@@ -103,9 +116,13 @@ Evaluate and return the dependent variable with index _xIndex_ at the independen
 
 None
 
-### `void Embedded_Runge_Kutta_Pair_ODE_Solver::evalXAll(`
-### `    double tVal,`
-### `    double *xVals)`
+### `evalXAll()`
+
+```
+void Embedded_Runge_Kutta_Pair_ODE_Solver::evalXAll(
+    double tVal,
+    double *xVals)
+```
 
 Evaluate the dependent variables at the independent variable value of _tVal_. The results are provided in the array argument _xvals_, an array with a length of the number of dependent variables.
 
