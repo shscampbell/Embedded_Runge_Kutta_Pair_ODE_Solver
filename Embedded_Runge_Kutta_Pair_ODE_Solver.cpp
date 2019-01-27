@@ -33,16 +33,16 @@ using namespace std;
 /************************** CONSTANTS ****************************************/
 
 //These constants are defined by the Dormand-Prince method.
-const int Embedded_Runge_Kutta_Pair_ODE_Solver::porder = 5;
-const int Embedded_Runge_Kutta_Pair_ODE_Solver::qorder = 4;
-const double Embedded_Runge_Kutta_Pair_ODE_Solver::RKc[] =
+const int Embedded_Runge_Kutta_Pair_ODE_Solver::k_porder = 5;
+const int Embedded_Runge_Kutta_Pair_ODE_Solver::k_qorder = 4;
+const double Embedded_Runge_Kutta_Pair_ODE_Solver::k_RKc[] =
     {0., 0.2, 0.3, 0.8, 8./9., 1., 1.},
-  Embedded_Runge_Kutta_Pair_ODE_Solver::RKb[] = 
+  Embedded_Runge_Kutta_Pair_ODE_Solver::k_RKb[] = 
     {5179./57600., 0., 7571./16695., 393./640., -92097./339200., 187./2100.,
     1./40.},
-  Embedded_Runge_Kutta_Pair_ODE_Solver::RKbhat[] = 
+  Embedded_Runge_Kutta_Pair_ODE_Solver::k_RKbhat[] = 
     {35./384., 0., 500./1113., 125./192., -2187./6784., 11./84., 0.},
-  Embedded_Runge_Kutta_Pair_ODE_Solver::RKa[][stages-1] = {
+  Embedded_Runge_Kutta_Pair_ODE_Solver::k_RKa[][k_stages-1] = {
     {},
     {1./5.},
     {3./40., 9./40.},
@@ -51,10 +51,10 @@ const double Embedded_Runge_Kutta_Pair_ODE_Solver::RKc[] =
     {9017./3168., -355./33., 46732./5247., 49./176., -5103./18656.},
     {35./384., 0., 500./1113., 125./192., -2187./6784., 11./84.}
   };
-const double Embedded_Runge_Kutta_Pair_ODE_Solver::RKorder = 5.;
+const double Embedded_Runge_Kutta_Pair_ODE_Solver::k_RKorder = 5.;
 
 //A constant used for determining step sizes.
-const double Embedded_Runge_Kutta_Pair_ODE_Solver::reduc = 0.9;
+const double Embedded_Runge_Kutta_Pair_ODE_Solver::k_reduc = 0.9;
 
 /************************** UTILITY FUNCTIONS ********************************/
 
@@ -326,17 +326,18 @@ inline double Embedded_Runge_Kutta_Pair_ODE_Solver::doStep(const double step,
   double *xVals, unsigned int xSep)
 {
   int xi, si, si2, xici, xvi;
-  double tmid, derivVals[nDepVars][stages], xqvals[nDepVars], delta[nDepVars];
+  double tmid, derivVals[nDepVars][k_stages], xqvals[nDepVars],
+    delta[nDepVars];
 
-  for (si=0; si<stages; si++) {
+  for (si=0; si<k_stages; si++) {
     for (xi=0, xici=0; xi<nDepVars; xi++, xici+=initCondSep) {
       xqvals[xi]=0;
       for (si2=0; si2<si; si2++) {
-        xqvals[xi] += RKa[si][si2]*derivVals[xi][si2];
+        xqvals[xi] += k_RKa[si][si2]*derivVals[xi][si2];
       }
       xqvals[xi] = xqvals[xi]*step + initConds[xici];
     }
-    tmid = ti + step*RKc[si];
+    tmid = ti + step*k_RKc[si];
     for (xi=0; xi<nDepVars; xi++) {
       derivVals[xi][si] = (*(derivFuncs[xi]))(xqvals,tmid);
     }
@@ -344,9 +345,9 @@ inline double Embedded_Runge_Kutta_Pair_ODE_Solver::doStep(const double step,
   for (xi=0, xvi=0, xici=0; xi<nDepVars; xi++, xici+=initCondSep, xvi+=xSep) {
     xVals[xvi] = 0;
     xqvals[xi] = 0;
-    for (si=0; si<stages; si++) {
-      xVals[xvi] += RKbhat[si]*derivVals[xi][si];
-      xqvals[xi] += RKb[si]*derivVals[xi][si];
+    for (si=0; si<k_stages; si++) {
+      xVals[xvi] += k_RKbhat[si]*derivVals[xi][si];
+      xqvals[xi] += k_RKb[si]*derivVals[xi][si];
     }
     xVals[xvi] = xVals[xvi]*step + initConds[xici];
     xqvals[xi] = xqvals[xi]*step + initConds[xici];
@@ -392,25 +393,25 @@ void Embedded_Runge_Kutta_Pair_ODE_Solver::doQuickStep(double step,
   const double ti, const double *initConds, double *xVals)
 {
   int xi1, si1, si2;
-  double tmid, derivVals[nDepVars][stages];
+  double tmid, derivVals[nDepVars][k_stages];
 
-  for (si1=0; si1<stages; si1++) {  
+  for (si1=0; si1<k_stages; si1++) {  
     for (xi1=0; xi1<nDepVars; xi1++) {
       xVals[xi1]=0;
       for (si2=0; si2<si1; si2++) {
-        xVals[xi1] += RKa[si1][si2]*derivVals[xi1][si2];
+        xVals[xi1] += k_RKa[si1][si2]*derivVals[xi1][si2];
       }
       xVals[xi1] = xVals[xi1]*step + initConds[xi1];
     }
-    tmid = ti + step*RKc[si1];
+    tmid = ti + step*k_RKc[si1];
     for (xi1=0; xi1<nDepVars; xi1++) {
       derivVals[xi1][si1] = (*(derivFuncs[xi1]))(xVals,tmid);
     }
   }
   for (xi1=0; xi1<nDepVars; xi1++) {
     xVals[xi1] = 0;
-    for (si1=0; si1<stages; si1++) {
-      xVals[xi1] += RKbhat[si1]*derivVals[xi1][si1];
+    for (si1=0; si1<k_stages; si1++) {
+      xVals[xi1] += k_RKbhat[si1]*derivVals[xi1][si1];
     }
     xVals[xi1] = xVals[xi1]*step + initConds[xi1];
   }
@@ -432,7 +433,7 @@ void Embedded_Runge_Kutta_Pair_ODE_Solver::doQuickStep(double step,
 inline double Embedded_Runge_Kutta_Pair_ODE_Solver::newStep(double step,
   double err, double tolerance)
 {
-  return reduc*step*pow(tolerance/err, 1.0/((double)porder+1.0));
+  return k_reduc*step*pow(tolerance/err, 1.0/((double)k_porder+1.0));
 }
 
 //A limited newStep that prevents the step size from increasing by more than a

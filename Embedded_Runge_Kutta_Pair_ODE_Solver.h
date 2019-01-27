@@ -64,14 +64,14 @@ class Embedded_Runge_Kutta_Pair_ODE_Solver {
 
   protected:
     //Runge-Kutta ODE solver constants and variables
-    static const int porder;
-    static const int qorder;
-    static const int stages = 7;
-    static const double RKc[stages],
-                        RKb[stages],
-      RKbhat[stages],
-      RKa[stages][stages-1];
-    static const double RKorder, reduc;
+    static const int k_porder;
+    static const int k_qorder;
+    static const int k_stages = 7;
+    static const double k_RKc[k_stages],
+                        k_RKb[k_stages],
+                        k_RKbhat[k_stages],
+                        k_RKa[k_stages][k_stages-1];
+    static const double k_RKorder, k_reduc;
 
     //The number of dependent variables
     unsigned int nVars;
