@@ -8,7 +8,7 @@ Any system of ordinary differential equations can be written as a system of firs
 
 ![ODE](https://latex.codecogs.com/svg.latex?%5Clarge%20%5Cfrac%7Bdx_1%7D%7Bdt%7D%3DF_1%28t%2Cx_1%2Cx_2%2C%5Cdots%2Cx_N%29%5C%5C%5C%5C%5Cmbox%7B%5C%20%5C%20%5C%20%5C%2C%7D%5Cfrac%7Bdx_2%7D%7Bdt%7D%3DF_2%28t%2Cx_1%2Cx_2%2C%5Cdots%2Cx_N%29%5C%5C%5Cmbox%7B%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%7D%5Cvdots%5C%5C%5Cmbox%7B%5C%20%5C%20%5C%2C%7D%5Cfrac%7Bdx_N%7D%7Bdt%7D%3DF_N%28t%2Cx_1%2Cx_2%2C%5Cdots%2Cx_N%29).
 
-Here, ![t](https://latex.codecogs.com/svg.latex?t) is called the *independent variable*, and the ![N](https://latex.codecogs.com/svg.latex?N) variables ![xi](https://latex.codecogs.com/svg.latex?x_i) are called the dependent variables.
+Here, ![t](https://latex.codecogs.com/svg.latex?t) is called the _independent variable_, and the ![N](https://latex.codecogs.com/svg.latex?N) variables ![xi](https://latex.codecogs.com/svg.latex?x_i) are called the _dependent variables_.
 
 The purpose is to determine dependent variables ![xi(t)](https://latex.codecogs.com/svg.latex?x_i%28t%29) that satisfy a given set of differential equations over a range of the independent variable ![range](https://latex.codecogs.com/svg.latex?t_1%5Cleq%20t%5Cleq%20t_2) for a particular set of initial conditions ![initConds](https://latex.codecogs.com/svg.latex?x_i%28t_1%29).
 
@@ -30,9 +30,26 @@ To compile and run the test program, open the makefile and set the C++ compiler 
 
 # API Reference
 
-### `Embedded_Runge_Kutta_Pair_ODE_Solver::Embedded_Runge_Kutta_Pair_ODE_Solver(double ti, double tf,const double *initConds, double (**derivFuncs)(double *, double), unsigned int nDepVars, double tolerance = 0.01, double stepSize = 1., unsigned int initLen = 0)`
+### `Embedded_Runge_Kutta_Pair_ODE_Solver::Embedded_Runge_Kutta_Pair_ODE_Solver(
+	double ti,
+	double tf,
+	const double *initConds,
+	double (**derivFuncs)(double *, double),
+	unsigned int nDepVars,
+	double tolerance = 0.01,
+	double stepSize = 1.,
+	unsigned int initLen = 0)`
 
-### `Embedded_Runge_Kutta_Pair_ODE_Solver::Embedded_Runge_Kutta_Pair_ODE_Solver(double ti, double tf, const double *initConds, double (**derivFuncs)(double *, double), unsigned int nDepVars, int dokeepsoln, double tolerance = 0.01, double stepSize = 1., unsigned int initLen = 0)`
+### `Embedded_Runge_Kutta_Pair_ODE_Solver::Embedded_Runge_Kutta_Pair_ODE_Solver(
+	double ti,
+	double tf,
+	const double *initConds,
+	double (**derivFuncs)(double *, double),
+	unsigned int nDepVars,
+	int dokeepsoln,
+	double tolerance = 0.01,
+	double stepSize = 1.,
+	unsigned int initLen = 0)`
 
 Perform the integration of the given differential equation with _nDepVars_ dependent variables for the independent variable ranging from _ti_ to _tf_ with initial conditions specified at _ti_.
 
@@ -66,7 +83,9 @@ _tolerance_ is a positive number. The pointers _initConds_ and _derivFuncs_ both
 
 ### `Embedded_Runge_Kutta_Pair_ODE_Solver::~Embedded_Runge_Kutta_Pair_ODE_Solver()`
 
-### `double Embedded_Runge_Kutta_Pair_ODE_Solver::evalX(unsigned int xIndex, double tVal)`
+### `double Embedded_Runge_Kutta_Pair_ODE_Solver::evalX(
+	unsigned int xIndex,
+	double tVal)`
 
 Evaluate and return the dependent variable with index _xIndex_ at the independent variable value of _tVal_. If _xIndex_ is greater or equal to _nDepVars_, the number of dependent variables, then _evalX_ sets _errno_ to _ERANGE_ signifying a range error, prints an error message to _stderr_, and returns 0. If _tVal_ is sufficiently outside the independent variable range from _ti_ to _tf_, then the returned result is not likely to be accurate to within _tolerance_ and a warning will be printed to _stderr_.
 
@@ -84,7 +103,9 @@ Evaluate and return the dependent variable with index _xIndex_ at the independen
 
 None
 
-### `void Embedded_Runge_Kutta_Pair_ODE_Solver::evalXAll(double tVal, double *xVals)`
+### `void Embedded_Runge_Kutta_Pair_ODE_Solver::evalXAll(
+	double tVal,
+	double *xVals)`
 
 Evaluate the dependent variables at the independent variable value of _tVal_. The results are provided in the array argument _xvals_, an array with a length of the number of dependent variables.
 
